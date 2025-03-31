@@ -1,16 +1,15 @@
 {
-    "version": 2,
-    "functions": {
-      "Controller/similarity.py": {
-        "runtime": "@vercel/python",
-        "pythonVersion": "3.9",
-        "includeFiles": ["requirements.txt"]
-      }
-    },
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "Controller/similarity.py"
-      }
-    ]
-  }
+  "version": 2,
+  "builds": [
+    {
+      "src": "Controller/APIStarter.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "Controller/APIStarter.js"
+    }
+  ]
+}
