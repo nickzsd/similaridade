@@ -1,0 +1,18 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "Controller/similarity.py", 
+        "use": "@vercel/python",
+        "config": {
+          "requirements": "config/requirements.txt"
+        }
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "Controller/similarity.py"
+      }
+    ]
+  }
