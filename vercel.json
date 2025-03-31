@@ -6,7 +6,8 @@
         "use": "@vercel/python",
         "config": {
           "requirements": "requirements.txt",
-          "pythonVersion": "3.12"
+          "pythonVersion": "3.12",
+          "pip": "install --upgrade --disable-pip-version-check --verbose"
         }
       }
     ],
