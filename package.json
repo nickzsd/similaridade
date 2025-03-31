@@ -1,0 +1,25 @@
+{
+    "name": "my-app",
+    "version": "1.0.0",
+    "type": "module",
+    "main": "API/APIStarter.js",
+    "scripts": {
+        "start": "node API/APIStarter.js"
+    },
+    "dependencies": {
+        "express": "^5.1.0",
+        "my-app": "file:"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/nickzsd/similaridade.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/nickzsd/similaridade/issues"
+    },
+    "homepage": "https://github.com/nickzsd/similaridade#readme",
+    "description": ""
+}

@@ -251,6 +251,15 @@ def get_gender_key():
 
     return jsonify({"key": Gender_List}) 
 
+@app.route('/shutdown', methods=['POST'])
+def shutdown():
+    func = request.environ.get('werkzeug.server.shutdown')
+    if func is None:
+        return jsonify({"error": "Não é possível desligar o servidor"}), 500
+    func()
+    return jsonify({"message": "Servidor desligando..."}), 200
+
+
 @app.route("/CheckServer", methods=["GET"])
 def home():
     return "Server is running", 200
