@@ -5,7 +5,7 @@
         "src": "Controller/similarity.py", 
         "use": "@vercel/python",
         "config": {
-          "requirements": "config/requirements.txt"
+          "requirements": "requirements.txt"
         }
       }
     ],
