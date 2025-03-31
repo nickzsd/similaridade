@@ -5,7 +5,8 @@
         "src": "Controller/similarity.py", 
         "use": "@vercel/python",
         "config": {
-          "requirements": "requirements.txt"
+          "requirements": "requirements.txt",
+          "pythonVersion": "3.12"
         }
       }
     ],
