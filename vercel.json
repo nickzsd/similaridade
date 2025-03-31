@@ -2,14 +2,14 @@
     "version": 2,
     "builds": [
     {
-        "src": "/api/APIStarter.js",
+        "src": "/APIStarter.js",
         "use": "@vercel/node"
     }
     ],
     "routes": [
     {
-        "src": "/api/(.*)",
-        "dest": "/api/APIStarter.js"
+        "src": "/(.*)",
+        "dest": "/APIStarter.js"
     }
     ]
 } 
