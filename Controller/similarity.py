@@ -96,8 +96,8 @@ class Similarity_Books:
                 AppendBook  =  True if (_info in RefbookInfo) else False
             elif(_type == 6):
                 var1 = str(_refbook['Classificação']).replace(",", ".")
-                var2 = str(_info).replace(",", ".")
-                AppendBook  =  True if float(var1) < float(var2) else False
+                var2 = str(_info).replace(",", ".")                
+                AppendBook  =  True if float(var1) >= float(var2) else False
                 
             if(AppendBook == True):
                 Selections.append(_refbook)
@@ -151,7 +151,7 @@ class Similarity_Books:
                 
                 if 6 in MistInfo:  # Nota (Minima)
                     var1 = str(_refbook['Classificação']).replace(",", ".")
-                    var2 = str(MistInfo[6]).replace(",", ".")
+                    var2 = str(MistInfo[6]).replace(",", ".")                    
                     if float(var1) < float(var2):
                         valid = False
 
@@ -250,15 +250,6 @@ def get_gender_key():
     print(Gender_List)
 
     return jsonify({"key": Gender_List}) 
-
-@app.route('/shutdown', methods=['POST'])
-def shutdown():
-    func = request.environ.get('werkzeug.server.shutdown')
-    if func is None:
-        return jsonify({"error": "Não é possível desligar o servidor"}), 500
-    func()
-    return jsonify({"message": "Servidor desligando..."}), 200
-
 
 @app.route("/CheckServer", methods=["GET"])
 def home():

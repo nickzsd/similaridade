@@ -265,7 +265,7 @@ async function makeConsult() {
     if(HasBooks)
     {         
         clearInterval(loadingInterval);
-        await sleep(500)        
+        await sleep(1500)        
         UpdateInterface(true);
     }
 }

@@ -1,4 +1,0 @@
-pandas
-openpyxl
-flask
-flask_cors
