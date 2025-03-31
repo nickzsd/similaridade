@@ -3,10 +3,7 @@
     "builds": [
       {
         "src": "Controller/similarity.py", 
-        "use": "@vercel/python",
-        "config": {          
-          "pythonVersion": "3.12"          
-        }
+        "use": "@vercel/python"
       }
     ],
     "routes": [
