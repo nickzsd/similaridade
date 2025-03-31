@@ -1,5 +1,12 @@
 {
     "version": 2,
+    "functions": {
+      "Controller/similarity.py": {
+        "runtime": "@vercel/python",
+        "pythonVersion": "3.9",
+        "includeFiles": ["requirements.txt"]
+      }
+    },
     "routes": [
       {
         "src": "/(.*)",
