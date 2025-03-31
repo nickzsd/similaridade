@@ -1,0 +1,66 @@
+.m_livro {
+    padding: 0.5rem;
+    width: 40%;
+}
+
+.c_modelo {
+    border-bottom: 2px solid var(--c_borda);
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.m_livro__h1 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.container_input-op {
+    width: 100%;
+}
+
+.container_mult {
+    display: flex;
+}
+
+.container_mult__c {
+    margin-right: 2rem;
+}
+
+.img_livro {
+    border: 2px solid var(--c_borda);
+    border-radius: 8px;
+    height: 150px;
+    width: 90px;
+    margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+    margin-top: 0;    
+    overflow: auto;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.RateCheck_input{
+    margin-right: 0.5rem;
+}
+
+.p_opcoes {
+    margin-bottom: 1rem;
+}
+
+.mult_ultimo {
+    margin-bottom: 2rem;
+}
+
+.c_resultado__h1 {
+    margin-top: 0.2rem;
+    font-size: 18px;
+    text-align: center;
+}
+
+.c_livro__resultado {
+    max-width: 70%;
+}
+

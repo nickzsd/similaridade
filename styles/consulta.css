@@ -1,0 +1,66 @@
+.c_livro {
+    padding: 0.5rem;
+    width: 100%;
+}
+
+.border {
+    border-right: 2px solid var(--c_borda);
+}
+
+.c_livro__h1 {
+    text-align: center;
+    margin-bottom: 5rem;
+}
+
+.c_livro__form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-height:300px;
+}
+
+.container_input {
+    margin-left: 0.8rem;
+    width: 50%;    
+}
+
+.Container_Rate{
+    flex-direction: row;
+    align-items: center; 
+    display: flex;
+    margin-bottom: 0.5rem;
+}
+
+.container_genero {
+    height: fit-content;
+    width: 50%;
+}
+
+.genero_lista {
+    display: flex;
+    flex-wrap: wrap;
+    padding-right: 1rem;
+}
+
+.genero_item {
+    margin: 0.5rem 0rem 0.5rem 0.5rem;
+    width: 70px;
+}
+
+.container_idade {
+    align-items: center;
+    text-align: center;
+}
+
+.select_idade {
+    align-self: center;
+    margin: 0 2.7rem 0 0;
+    width: 40%;
+}
+
+.container_botoes {
+    display: flex;
+    margin-top: 2rem;
+    justify-content: space-evenly;
+    width: 100%;
+}
