@@ -3,8 +3,12 @@
     "builds": [
       {
         "src": "Controller/similarity.py", 
-        "use": "@vercel/python"
-      }
+        "use": "@vercel/python",
+        "config": {
+          "pythonVersion": "3.7.1",
+          "pip": "install pandas openpyxl flask flask_cors"
+        }
+      }      
     ],
     "routes": [
       {
