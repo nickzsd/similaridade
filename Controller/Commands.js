@@ -35,7 +35,7 @@ document.getElementById("Check_Rate").addEventListener('change', function() {
 //Funções API
 async function checkServerStatus() {
     try {
-        const response = await fetch("http://127.0.0.1:5000/CheckServer", {
+        const response = await fetch("http://0.0.0.0:5000/CheckServer", {
             method: "GET"
         });
         if (response.ok) {
@@ -50,7 +50,7 @@ async function checkServerStatus() {
 
 async function getGenderKey(genre) {
     try {
-        const response = await fetch("http://127.0.0.1:5000/get_gender_key", {
+        const response = await fetch("http://0.0.0.0:5000/get_gender_key", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -68,7 +68,7 @@ async function getGenderKey(genre) {
 
 async function GetBooks(_Info) {    
     try {
-        const response = await fetch("http://127.0.0.1:5000/get_Books", {
+        const response = await fetch("http://0.0.0.0:5000/get_Books", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
