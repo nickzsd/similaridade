@@ -6,7 +6,7 @@ const app = express();
 const port = 3000;
 
 function runPythonScript() {
-    const pythonProcess = spawn("python", ["controller/similarity.py"]);
+    const pythonProcess = spawn("python", ["similarity.py"]);
 
     let output = "";
 

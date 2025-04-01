@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 
 import pandas as pd
@@ -254,6 +254,10 @@ def get_gender_key():
 @app.route("/CheckServer", methods=["GET"])
 def home():
     return "Server is running", 200
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
