@@ -93,7 +93,6 @@ h1 {
 @media (max-width: 540px) {
     .main_container {
         background-color: var(--c_container);
-        width: 450px;    
         height: 800px;
         overflow-y: auto; /* Adiciona rolagem vertical, mas só dentro dela */
         max-height: 850px; /* Limita a altura */
