@@ -64,3 +64,20 @@
     max-width: 70%;
 }
 
+@media (max-width: 540px) {
+    .m_livro {
+        margin-top: 3rem;
+        padding: 0.5rem;
+        width: 100%;           
+    }
+
+    .main_container{
+        flex-direction: column;
+        align-items: center; 
+    }
+
+    #Books_Bar {
+        width: 100%; 
+    }
+}
+
