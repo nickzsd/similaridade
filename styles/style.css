@@ -96,6 +96,6 @@ h1 {
         width: 450px;    
         height: 800px;
         overflow-y: auto; /* Adiciona rolagem vertical, mas só dentro dela */
-        max-height: 700px; /* Limita a altura */
+        max-height: 850px; /* Limita a altura */
     }
 }
