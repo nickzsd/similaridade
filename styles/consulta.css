@@ -44,6 +44,17 @@
 .genero_item {
     margin: 0.5rem 0rem 0.5rem 0.5rem;
     width: 70px;
+    height: 30px;
+}
+
+.c_input{        
+    display: block;
+    margin: auto;
+}
+
+.genero_nome{
+    text-align: center;
+    margin-bottom: 0.5rem;
 }
 
 .container_idade {

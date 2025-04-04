@@ -9,6 +9,7 @@
     flex-direction: row;
     padding-bottom: 0.5rem;
     margin-bottom: 0.5rem;
+    overflow: auto;
 }
 
 .m_livro__h1 {
@@ -22,6 +23,10 @@
 
 .container_mult {
     display: flex;
+}
+
+.container_mult__c{
+    margin-bottom: 1rem;
 }
 
 .Bottom_Cont{

@@ -18,7 +18,7 @@ h1 {
 .main_container {
     background-color: var(--c_container);
     width: 900px;    
-    height: 545px;
+    height: 580px;
     border: 2px solid var(--c_borda);
     border-radius: 10px;
     box-shadow: 2.5px 2.5px 30px rgba(100, 100, 100, 0.7), -2.5px -2.5px 30px rgba(100, 100, 100, 0.7);
