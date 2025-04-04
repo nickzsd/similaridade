@@ -53,6 +53,7 @@ h1 {
     font-size: 14px;
     font-weight: bold;
     margin-right: 1rem;
+    flex-grow: 1;
 }
 
 .b_input, .select_idade {
@@ -93,8 +94,7 @@ h1 {
 @media (max-width: 540px) {
     .main_container {
         background-color: var(--c_container);
-        height: 800px;
-        overflow-y: auto; /* Adiciona rolagem vertical, mas só dentro dela */
-        max-height: 850px; /* Limita a altura */
+        height: 100%;
+        overflow-y: auto;
     }
 }

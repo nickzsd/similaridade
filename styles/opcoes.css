@@ -25,7 +25,8 @@
 }
 
 .container_mult__c {
-    margin-right: 2rem;
+    gap: 2rem;
+    flex-grow: 1;    
 }
 
 .img_livro {
@@ -62,6 +63,7 @@
 
 .c_livro__resultado {
     max-width: 70%;
+    overflow: auto;
 }
 
 @media (max-width: 540px) {
