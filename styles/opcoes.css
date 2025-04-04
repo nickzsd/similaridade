@@ -24,9 +24,8 @@
     display: flex;
 }
 
-.container_mult__c {
-    gap: 2rem;
-    flex-grow: 1;    
+.Bottom_Cont{
+    margin-left: 1rem;
 }
 
 .img_livro {
@@ -48,7 +47,18 @@
 }
 
 .p_opcoes {
-    margin-bottom: 1rem;
+    margin-bottom: 1rem;    
+}
+
+.TitleText{
+    width: 150px;
+    word-wrap: break-word; 
+    white-space: normal;
+    overflow: auto;    
+}
+
+.GenderIPT{
+    width: 2rem;
 }
 
 .mult_ultimo {
@@ -64,6 +74,14 @@
 .c_livro__resultado {
     max-width: 70%;
     overflow: auto;
+}
+
+.Title_Cont{
+    width: 50%;
+}
+
+.Rate_Cont{
+    margin-left: 2rem;
 }
 
 @media (max-width: 540px) {

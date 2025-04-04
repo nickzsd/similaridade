@@ -92,6 +92,9 @@ h1 {
 }
 
 @media (max-width: 540px) {
+    main{
+        margin-top: 0;        
+    }
     .main_container {
         background-color: var(--c_container);
         height: 100%;

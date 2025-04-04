@@ -166,7 +166,7 @@ function FillBooks(){
     document.getElementById("Author_S").textContent         = FirstSimilarSelection['Autor']
     document.getElementById("Title_S").textContent          = FirstSimilarSelection['Titulo']
     document.getElementById("Classification_S").textContent = bestSelection['Classificação']
-    document.getElementById("Genders_S").textContent        = (GenderListSimilar.length > 0) ? GenderListSimilar.join("\n") : "";        
+    document.getElementById("Genders_S").textContent        = (GenderListSimilar.length > 0) ? GenderList.join("\n") : "";        
 
     if(similarsContainer.hasChildNodes){
         while (similarsContainer.firstChild) {
