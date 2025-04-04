@@ -70,7 +70,7 @@
 
 .container_botoes {
     display: flex;
-    margin-top: 2rem;
+    margin-top: 4rem;
     justify-content: space-evenly;
     width: 100%;
 }
@@ -93,5 +93,10 @@
     .container_idade,
     .Container_Rate {
         width: 100%; 
+    }
+
+    .container_botoes {        
+        margin: auto;
+        
     }
 }
