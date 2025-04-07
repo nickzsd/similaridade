@@ -1,5 +1,5 @@
 .m_livro {
-    padding: 0.5rem;
+    padding: 0.3rem;
     width: 40%;
 }
 
@@ -12,9 +12,12 @@
     overflow: auto;
 }
 
-.m_livro__h1 {
-    text-align: center;
+.m_livro__h1 {    
     margin-bottom: 1.5rem;
+    font-family: 'Cinzel', serif;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;    
 }
 
 .container_input-op {
@@ -72,8 +75,10 @@
 
 .c_resultado__h1 {
     margin-top: 0.2rem;
+    font-family: 'Cinzel', serif;
     font-size: 18px;
-    text-align: center;
+    font-weight: 600;
+    text-align: center; 
 }
 
 .c_livro__resultado {
@@ -81,15 +86,11 @@
     overflow: auto;
 }
 
-.Title_Cont{
-    width: 50%;
-}
-
 .Rate_Cont{
     margin-left: 2rem;
 }
 
-@media (max-width: 540px) {
+@media (max-width: 700px) {
     .m_livro {
         margin-top: 3rem;
         padding: 0.5rem;

@@ -1,18 +1,20 @@
-html {
-    background-color: var(--c_fundo);
-}
-
 main {
     display: flex;
     justify-content: center;
     margin-top: 5vh;
-    color: var(--c_p1);
-
+    color: var(--c_p1);    
 }
 
 h1 {
     font-size: 20px;
     font-weight: bolder;
+}
+
+html,body{
+    background-image: url("https://wallpapers.com/images/featured-full/plano-de-fundo-do-livro-xfix8ihv6dmfjzyu.jpg");    
+    background-size: cover;     
+    background-position: center;     
+    height: 100%;
 }
 
 .main_container {
@@ -21,26 +23,32 @@ h1 {
     height: 580px;
     border: 2px solid var(--c_borda);
     border-radius: 10px;
-    box-shadow: 2.5px 2.5px 30px rgba(100, 100, 100, 0.7), -2.5px -2.5px 30px rgba(100, 100, 100, 0.7);
-    display: flex;
+    box-shadow: 2.5px 2.5px 30px rgba(100, 100, 100, 0.7), -2.5px -2.5px 30px rgba(99, 53, 0, 0.562);
+    display: flex;    
 }
 
 .t_input {
-    border: 2px solid var(--c_borda);
-    border-radius: 7px;
-    background: darkgray;
+    border: 2px solid var(--c_inputBorder);
+    border-radius: 7px;    
+    background-color: var(--c_fundo);
     height: 1.2rem;
     width: 80%;
     margin-bottom: 1rem;
 }
 
 .Classification_Input {
-    border: 2px solid var(--c_borda);
+    border: 2px solid var(--c_inputBorder);
     border-radius: 7px;
-    background: darkgray;
+    background-color: var(--c_fundo);
     height: 1.2rem;
     width: 20%;
     margin-bottom: 1rem;
+}
+
+.Rate_Title_Consider{
+    font-size: 14px;
+    font-weight: bold;
+    margin-right: 10px;
 }
 
 .RateTitle_input{
@@ -59,11 +67,15 @@ h1 {
 .b_input, .select_idade {
     font-size: 13px;
     color: var(--c_h1);
-    border: 2px solid var(--c_borda);
+    border: 2px solid var(--c_inputBorder);
+    padding: 2px;
     border-radius: 10px;
     background-color: var(--c_fundo);
     width: 20%;
     height: 1.5rem;
+    transition: background-color 0.5s, transform 0.5s;
+    transform: translateY(0);
+    cursor: pointer;
 }
 
 .b_input:hover {
@@ -72,10 +84,16 @@ h1 {
     cursor: pointer;
 }
 
+.b_input.clicked{
+    background-color: #8b3e1c;
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 #6b3a1a;
+}
+
 .border_bottom {
     display: block;
     width: 100%;
-    border-bottom: 2px solid var(--c_borda);
+    border-bottom: 2px solid var(--c_inputBorder);
 }
 
 .form_scroll {
@@ -91,7 +109,7 @@ h1 {
     margin-bottom: 2rem;
 }
 
-@media (max-width: 540px) {
+@media (max-width: 700px) {
     main{
         margin-top: 0;        
     }

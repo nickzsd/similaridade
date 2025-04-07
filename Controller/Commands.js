@@ -4,6 +4,8 @@ let makingConsult = false;
 
 const similarsContainer = document.getElementById('Similars'); 
 const bookTemplate      = document.getElementById('bookTemplate'); 
+const Button            = document.querySelectorAll(".b_input");
+const checkboxes        = document.querySelectorAll('.c_input');
 
 //Varaiveis Principais
 let selectedGenres;
@@ -30,6 +32,26 @@ document.getElementById("Check_Rate").addEventListener('change', function() {
 
     document.getElementById("Rate_Title").style.display         = (verify) ? "block" : 'none';
     document.getElementById("Classification_IPT").style.display = (verify) ? "block" : 'none';    
+});
+
+Button.forEach(Button => {
+    Button.addEventListener("mousedown", () => {
+        Button.classList.add("clicked");
+
+        setTimeout(() => {
+            Button.classList.remove("clicked");
+        }, 400);
+    });
+});
+
+checkboxes.forEach(cb => {
+    cb.addEventListener('change', () => {
+        if (cb.checked) {
+            cb.parentElement.classList.add('checked');
+        } else {
+            cb.parentElement.classList.remove('checked');
+        }
+    });
 });
 
 //Funções API
@@ -88,8 +110,13 @@ async function GetGenders() {
     let checkedGenres = document.querySelectorAll(".container_genero input[type='checkbox']:checked");
     let Genres;
 
-    Genres = Array.from(checkedGenres).map(checkbox => 
-        checkbox.previousElementSibling.textContent.trim());
+    Genres = Array.from(checkedGenres).map(checkbox => {
+        let label = checkbox.closest(".checkbox_label");
+        let generoNome = label?.querySelector(".genero_nome");
+        return generoNome?.textContent.trim() ?? null;
+    }).filter(Boolean); 
+
+    console.log(Genres)
     
     if (Genres.length == 1){
         Genres = await getGenderKey(Genres);       
@@ -111,6 +138,14 @@ function ClearAll(){
     document.getElementById("Rate_Title").style.display         = 'none';
     document.getElementById("Classification_IPT").style.display = 'none';
     makingConsult = false;   
+
+    checkboxes.forEach(cb => {
+        if (cb.checked) {
+            cb.parentElement.classList.add('checked');
+        } else {
+            cb.parentElement.classList.remove('checked');
+        }
+    });
 }
 
 async function GetMainVars(){
@@ -123,9 +158,10 @@ async function GetMainVars(){
     SelectedAuthor  = "";
     SelectedTitle   = ""; 
     Classification  = 0 ;
-
+    
     //Coleta os Valores informados
-    selectedGenres = await GetGenders()    
+    selectedGenres = await GetGenders()   
+    console.log(selectedGenres) 
     RateSelection  = document.getElementById('Rate_Selection').value //Idade Informada
     PagesNum       = document.getElementById('Pages_IPT').value //Paginas    
     SelectedAuthor = document.getElementById('Author_IPT').value // Autor    
