@@ -12,6 +12,10 @@
     overflow: auto;
 }
 
+.c_livro__resultado{
+    overflow: auto;
+}
+
 .m_livro__h1 {    
     margin-bottom: 1.5rem;
     font-family: 'Cinzel', serif;

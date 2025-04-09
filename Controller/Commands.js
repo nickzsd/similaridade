@@ -195,7 +195,7 @@ function FillBooks(){
     document.getElementById("Genders").textContent          = (GenderList.length > 0) ? GenderList.join("\n") : "";        
     
     const FirstSimilarSelection = Books.key[1] 
-    const GenderListSimilar    = FirstSimilarSelection['Genero'].split(',');    
+    const GenderListSimilar    = FirstSimilarSelection['Genero'].split(',');  
     document.getElementById("Best_Selection_IMG_S").src     = FirstSimilarSelection['Capa']
     document.getElementById("Rate_S").textContent           = FirstSimilarSelection['Classificação Indicativa']
     document.getElementById("PagesNum_S").textContent       = FirstSimilarSelection['Paginas']

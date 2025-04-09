@@ -101,15 +101,41 @@ class Similarity_Books:
             if(AppendBook == True):
                 Selections.append(_refbook)
 
-        if(_type == 3):
+        if _type == 3:
             min_pag = int(_info)
-            
             Selections = sorted(
                 Selections,
-                key=lambda x: (-float(str(x['Classificação']).replace(',', '.')), abs(x['Paginas'] - min_pag))
+                key=lambda x: (
+                    -float(str(x['Classificação']).replace(',', '.')),
+                    abs(x['Paginas'] - min_pag)
+                )
             )
+
+        elif _type == 2:
+            Selections = sorted(
+                Selections,
+                key=lambda x: (
+                    -float(str(x['Classificação']).replace(',', '.')),
+                    x['Classificação Indicativa'] != Similarity_Books.Rate_mapping[int(_info)]
+                )
+            )
+
+        elif _type == 1:
+            genero_alvo = _info.split(',')[0]
+            Selections = sorted(
+                Selections,
+                key=lambda x: (
+                    -float(str(x['Classificação']).replace(',', '.')),
+                    x['Genero'] != genero_alvo  # False (0) vem antes de True (1)
+                )
+            )
+
         else:
-            Selections = sorted(Selections, key=lambda x: -float(str(x['Classificação']).replace(',', '.')))
+            Selections = sorted(
+                Selections,
+                key=lambda x: -float(str(x['Classificação']).replace(',', '.'))
+            )
+
 
 
         return Selections        
@@ -122,8 +148,11 @@ class Similarity_Books:
         if 3 in MistInfo:
             PageLimit  = int(MistInfo[3])
 
+        if 2 in MistInfo:
+            _MainAge = int(MistInfo[2])
+
         if 1 in MistInfo:
-            _info = MistInfo[1]
+            _Genderinfo = str(MistInfo[1])        
 
         while len(Selections) < Similarity_Books.booksCount:
             print(f'Info = {MistInfo}')
@@ -133,7 +162,7 @@ class Similarity_Books:
 
                 if 1 in MistInfo:  # Gênero
                     _refbook_Genderidx = _refbook['Genero']
-                    if not any(gender in _refbook_Genderidx for gender in _info):
+                    if not any(gender in _refbook_Genderidx for gender in _Genderinfo):
                         valid = False
 
                 if 2 in MistInfo:  # Classificação indicativa
@@ -175,16 +204,39 @@ class Similarity_Books:
                 break;  
 
             if(len(Selections) < (Similarity_Books.booksCount + 1)):
-                if 3 in MistInfo: MistInfo[3] = (int(MistInfo[3]) * 0.80) #Verifica se tem Paginas Informadas
+                if 3 in MistInfo: MistInfo[3] = (int(MistInfo[3]) * 0.80) 
                 if 2 in MistInfo: MistInfo[2] = (MistInfo[2] - 1) if (MistInfo[2] != 1) else MistInfo[2]                        
 
         if 3 in MistInfo:
             Selections = sorted(
                 Selections,
-                key=lambda x: (-float(str(x['Classificação']).replace(',', '.')), abs(x['Paginas'] - PageLimit))
+                key=lambda x: (
+                    -float(str(x['Classificação']).replace(',', '.')),
+                    abs(x['Paginas'] - PageLimit)
+                )
+            )
+        elif 2 in MistInfo:
+            Selections = sorted(
+                Selections,
+                key=lambda x: (
+                    -float(str(x['Classificação']).replace(',', '.')),
+                    x['Classificação Indicativa'] == Similarity_Books.Rate_mapping[_MainAge]
+                )
+            )
+        elif 1 in MistInfo:
+            genero_alvo = _Genderinfo.split(',')[0]
+            Selections = sorted(
+                Selections,
+                key=lambda x: (
+                    -float(str(x['Classificação']).replace(',', '.')),
+                    x['Genero'] != genero_alvo  
+                )
             )
         else:
-            Selections = sorted(Selections, key=lambda x: -float(str(x['Classificação']).replace(',', '.')))
+            Selections = sorted(
+                Selections,
+                key=lambda x: -float(str(x['Classificação']).replace(',', '.'))
+            )
 
         return Selections
             
