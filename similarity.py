@@ -101,7 +101,23 @@ class Similarity_Books:
             if(AppendBook == True):
                 Selections.append(_refbook)
 
-        if _type == 3:
+        if _type == 1:            
+            Selections = sorted(
+                Selections,
+                key=lambda x: (
+                    -float(str(x['Classificação']).replace(',', '.')),
+                    x['Genero'] != _info[0] 
+                )
+            )
+        elif _type == 2:
+            Selections = sorted(
+                Selections,
+                key=lambda x: (
+                    -float(str(x['Classificação']).replace(',', '.')),
+                    x['Classificação Indicativa'] != Similarity_Books.Rate_mapping[int(_info)]
+                )
+            )  
+        elif _type == 3:
             min_pag = int(_info)
             Selections = sorted(
                 Selections,
@@ -110,25 +126,6 @@ class Similarity_Books:
                     abs(x['Paginas'] - min_pag)
                 )
             )
-
-        elif _type == 2:
-            Selections = sorted(
-                Selections,
-                key=lambda x: (
-                    -float(str(x['Classificação']).replace(',', '.')),
-                    x['Classificação Indicativa'] != Similarity_Books.Rate_mapping[int(_info)]
-                )
-            )
-
-        elif _type == 1:            
-            Selections = sorted(
-                Selections,
-                key=lambda x: (
-                    -float(str(x['Classificação']).replace(',', '.')),
-                    x['Genero'] != _info[0] 
-                )
-            )
-
         else:
             Selections = sorted(
                 Selections,
@@ -206,12 +203,12 @@ class Similarity_Books:
                 if 3 in MistInfo: MistInfo[3] = (int(MistInfo[3]) * 0.80) 
                 if 2 in MistInfo: MistInfo[2] = (MistInfo[2] - 1) if (MistInfo[2] != 1) else MistInfo[2]                        
 
-        if 3 in MistInfo:
+        if 1 in MistInfo:
             Selections = sorted(
                 Selections,
                 key=lambda x: (
                     -float(str(x['Classificação']).replace(',', '.')),
-                    abs(x['Paginas'] - PageLimit)
+                    x['Genero'] != MistInfo[0]  
                 )
             )
         elif 2 in MistInfo:
@@ -222,14 +219,14 @@ class Similarity_Books:
                     x['Classificação Indicativa'] == Similarity_Books.Rate_mapping[_MainAge]
                 )
             )
-        elif 1 in MistInfo:
+        elif 3 in MistInfo:
             Selections = sorted(
                 Selections,
                 key=lambda x: (
                     -float(str(x['Classificação']).replace(',', '.')),
-                    x['Genero'] != MistInfo[0]  
+                    abs(x['Paginas'] - PageLimit)
                 )
-            )
+            )                
         else:
             Selections = sorted(
                 Selections,
