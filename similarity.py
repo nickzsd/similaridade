@@ -106,7 +106,7 @@ class Similarity_Books:
                 Selections,
                 key=lambda x: (
                     -float(str(x['Classificação']).replace(',', '.')),
-                    x['Genero'] != _info[0] 
+                    x['Genero'] != str(_info[0]) 
                 )
             )
         elif _type == 2:
@@ -208,7 +208,7 @@ class Similarity_Books:
                 Selections,
                 key=lambda x: (
                     -float(str(x['Classificação']).replace(',', '.')),
-                    x['Genero'] != MistInfo[0]  
+                    x['Genero'] != str(MistInfo[0])  
                 )
             )
         elif 2 in MistInfo:
