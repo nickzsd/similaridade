@@ -158,7 +158,7 @@ class Similarity_Books:
 
                 if 1 in MistInfo:  # Gênero
                     _refbook_Genderidx  = _refbook['Genero']
-                    if not any(letter in _refbook_Genderidx for letter in _Genderinfo)
+                    if not any(letter in _refbook_Genderidx for letter in _Genderinfo):
                         valid = False
 
                 if 2 in MistInfo:  # Classificação indicativa
