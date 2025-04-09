@@ -120,13 +120,12 @@ class Similarity_Books:
                 )
             )
 
-        elif _type == 1:
-            genero_alvo = _info.split(',')[0]
+        elif _type == 1:            
             Selections = sorted(
                 Selections,
                 key=lambda x: (
                     -float(str(x['Classificação']).replace(',', '.')),
-                    x['Genero'] != genero_alvo  # False (0) vem antes de True (1)
+                    x['Genero'] != _info[0] 
                 )
             )
 
@@ -224,12 +223,11 @@ class Similarity_Books:
                 )
             )
         elif 1 in MistInfo:
-            genero_alvo = _Genderinfo.split(',')[0]
             Selections = sorted(
                 Selections,
                 key=lambda x: (
                     -float(str(x['Classificação']).replace(',', '.')),
-                    x['Genero'] != genero_alvo  
+                    x['Genero'] != MistInfo[0]  
                 )
             )
         else:
