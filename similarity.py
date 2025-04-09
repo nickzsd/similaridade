@@ -29,7 +29,6 @@ class Similarity_Books:
             14: 'Terror',
             15: 'Aventura'
         }
-
     Rate_mapping_Calc = {
         2:  10,
         3:  12,
@@ -103,8 +102,22 @@ class Similarity_Books:
                 Selections.append(_refbook)
 
         if(_type == 3):
-            Selections = sorted([_book for _book in Selections if _book['Paginas'] >= int(_info)], key=lambda x: x['Paginas'])
-                
+            min_paginas = int(_info)
+            
+            Selections = sorted(
+                Selections,
+                key=lambda x: (-x['Classificação'], x['Paginas'])
+            )
+
+            # Prioriza os com páginas >= min_paginas
+            acima_min = [livro for livro in Selections if livro['Paginas'] >= min_paginas]
+            abaixo_min = [livro for livro in Selections if livro['Paginas'] < min_paginas]
+            
+            Selections = acima_min + abaixo_min
+        else:
+            Selections = sorted(Selections, key=lambda x: -x['Classificação'])
+
+
         return Selections        
 
     @staticmethod
@@ -172,7 +185,15 @@ class Similarity_Books:
                 if 2 in MistInfo: MistInfo[2] = (MistInfo[2] - 1) if (MistInfo[2] != 1) else MistInfo[2]                        
 
         if 3 in MistInfo:
-            Selections = sorted([_book for _book in Selections if _book['Paginas'] >= PageLimit], key=lambda x: x['Paginas'])    
+            Selections = sorted(
+                Selections,
+                key=lambda x: (-x['Classificação'], x['Paginas'])
+            )
+            acima_min = [livro for livro in Selections if livro['Paginas'] >= PageLimit]
+            abaixo_min = [livro for livro in Selections if livro['Paginas'] < PageLimit]
+            Selections = acima_min + abaixo_min
+        else:
+            Selections = sorted(Selections, key=lambda x: -x['Classificação'])
 
         return Selections
             
