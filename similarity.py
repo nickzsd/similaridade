@@ -106,7 +106,7 @@ class Similarity_Books:
             
             Selections = sorted(
                 Selections,
-                key=lambda x: (-x['Classificação'], abs(x['Paginas'] - min_pag))
+                key=lambda x: (-float(str(x['Classificação']).replace(',', '.')), abs(x['Paginas'] - min_pag))
             )
         else:
             Selections = sorted(Selections, key=lambda x: -x['Classificação'])
@@ -181,7 +181,7 @@ class Similarity_Books:
         if 3 in MistInfo:
             Selections = sorted(
                 Selections,
-                key=lambda x: (-x['Classificação'], abs(x['Paginas'] - PageLimit))
+                key=lambda x: (-float(str(x['Classificação']).replace(',', '.')), abs(x['Paginas'] - PageLimit))
             )
         else:
             Selections = sorted(Selections, key=lambda x: -x['Classificação'])
