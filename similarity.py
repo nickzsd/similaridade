@@ -157,9 +157,10 @@ class Similarity_Books:
                 valid = True
 
                 if 1 in MistInfo:  # Gênero
-                    _refbook_Genderidx = _refbook['Genero']
-                    print(f'{_refbook_Genderidx} / {_Genderinfo}')
-                    if not any(gender in _refbook_Genderidx for gender in _Genderinfo):
+                    refbook_genders = [g.strip().lower() for g in _refbook['Genero'].split(',')]
+                    requested_genders = [g.strip().lower() for g in _Genderinfo.split(',')]
+                    
+                    if not any(g in refbook_genders for g in requested_genders):
                         valid = False
 
                 if 2 in MistInfo:  # Classificação indicativa
