@@ -204,11 +204,12 @@ class Similarity_Books:
                 if 2 in MistInfo: MistInfo[2] = (MistInfo[2] - 1) if (MistInfo[2] != 1) else MistInfo[2]                        
 
         if 1 in MistInfo:
+            _Genderinfo = _Genderinfo.split(',')[0]
             Selections = sorted(
                 Selections,
                 key=lambda x: (
                     -float(str(x['Classificação']).replace(',', '.')),
-                    x['Genero'] != str(MistInfo[0])  
+                    x['Genero'] != _Genderinfo  
                 )
             )
         elif 2 in MistInfo:
@@ -219,7 +220,7 @@ class Similarity_Books:
                     x['Classificação Indicativa'] == Similarity_Books.Rate_mapping[_MainAge]
                 )
             )
-        elif 3 in MistInfo:
+        elif 3 in MistInfo:            
             Selections = sorted(
                 Selections,
                 key=lambda x: (
