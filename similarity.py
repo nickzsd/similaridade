@@ -109,7 +109,7 @@ class Similarity_Books:
                 key=lambda x: (-float(str(x['Classificação']).replace(',', '.')), abs(x['Paginas'] - min_pag))
             )
         else:
-            Selections = sorted(Selections, key=lambda x: -x['Classificação'])
+            Selections = sorted(Selections, key=lambda x: -float(str(x['Classificação']).replace(',', '.')))
 
 
         return Selections        
@@ -184,7 +184,7 @@ class Similarity_Books:
                 key=lambda x: (-float(str(x['Classificação']).replace(',', '.')), abs(x['Paginas'] - PageLimit))
             )
         else:
-            Selections = sorted(Selections, key=lambda x: -x['Classificação'])
+            Selections = sorted(Selections, key=lambda x: -float(str(x['Classificação']).replace(',', '.')))
 
         return Selections
             
