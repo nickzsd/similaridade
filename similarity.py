@@ -158,6 +158,7 @@ class Similarity_Books:
 
                 if 1 in MistInfo:  # Gênero
                     _refbook_Genderidx = _refbook['Genero']
+                    print(f'{_refbook_Genderidx} / {_Genderinfo}')
                     if not any(gender in _refbook_Genderidx for gender in _Genderinfo):
                         valid = False
 
