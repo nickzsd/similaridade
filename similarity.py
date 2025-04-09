@@ -102,18 +102,12 @@ class Similarity_Books:
                 Selections.append(_refbook)
 
         if(_type == 3):
-            min_paginas = int(_info)
+            min_pag = int(_info)
             
             Selections = sorted(
                 Selections,
-                key=lambda x: (-x['Classificação'], x['Paginas'])
+                key=lambda x: (-x['Classificação'], abs(x['Paginas'] - min_pag))
             )
-
-            # Prioriza os com páginas >= min_paginas
-            acima_min = [livro for livro in Selections if livro['Paginas'] >= min_paginas]
-            abaixo_min = [livro for livro in Selections if livro['Paginas'] < min_paginas]
-            
-            Selections = acima_min + abaixo_min
         else:
             Selections = sorted(Selections, key=lambda x: -x['Classificação'])
 
@@ -187,11 +181,8 @@ class Similarity_Books:
         if 3 in MistInfo:
             Selections = sorted(
                 Selections,
-                key=lambda x: (-x['Classificação'], x['Paginas'])
+                key=lambda x: (-x['Classificação'], abs(x['Paginas'] - PageLimit))
             )
-            acima_min = [livro for livro in Selections if livro['Paginas'] >= PageLimit]
-            abaixo_min = [livro for livro in Selections if livro['Paginas'] < PageLimit]
-            Selections = acima_min + abaixo_min
         else:
             Selections = sorted(Selections, key=lambda x: -x['Classificação'])
 
