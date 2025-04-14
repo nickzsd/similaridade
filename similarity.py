@@ -101,18 +101,22 @@ class Similarity_Books:
             if(AppendBook == True):
                 Selections.append(_refbook)
 
-        if _type == 1:            
+        target_rating = float(_info.replace(',', '.')) if _type == 6 else None
+
+        if _type == 1:
             Selections = sorted(
                 Selections,
                 key=lambda x: (
+                    abs(float(str(x['Classificação']).replace(',', '.')) - target_rating) if target_rating is not None else 0,
                     -float(str(x['Classificação']).replace(',', '.')),
-                    x['Genero'] != str(_info[0]) 
+                    x['Genero'] != str(_info[0])
                 )
             )
         elif _type == 2:
             Selections = sorted(
                 Selections,
                 key=lambda x: (
+                    abs(float(str(x['Classificação']).replace(',', '.')) - target_rating) if target_rating is not None else 0,
                     -float(str(x['Classificação']).replace(',', '.')),
                     x['Classificação Indicativa'] != Similarity_Books.Rate_mapping[int(_info)]
                 )
@@ -122,6 +126,7 @@ class Similarity_Books:
             Selections = sorted(
                 Selections,
                 key=lambda x: (
+                    abs(float(str(x['Classificação']).replace(',', '.')) - target_rating) if target_rating is not None else 0,
                     -float(str(x['Classificação']).replace(',', '.')),
                     abs(x['Paginas'] - min_pag)
                 )
@@ -129,17 +134,20 @@ class Similarity_Books:
         else:
             Selections = sorted(
                 Selections,
-                key=lambda x: -float(str(x['Classificação']).replace(',', '.'))
-            )
-
-
-
-        return Selections        
+                key=lambda x: (
+                    abs(float(str(x['Classificação']).replace(',', '.')) - target_rating) if target_rating is not None else 0,
+                    -float(str(x['Classificação']).replace(',', '.'))
+                )
+            )     
+        return Selections;
 
     @staticmethod
     def MakeMistConsult(MistInfo: dict) -> list:
         Selections = []
         attempts   = 0
+
+        if 6 in MistInfo:
+            RateLimit = int(MistInfo[6]) 
 
         if 3 in MistInfo:
             PageLimit  = int(MistInfo[3])
@@ -208,14 +216,16 @@ class Similarity_Books:
             Selections = sorted(
                 Selections,
                 key=lambda x: (
+                    abs(float(str(x['Classificação']).replace(',', '.')) - float(str(MistInfo[6]).replace(',', '.'))) if 6 in MistInfo else 0,
                     -float(str(x['Classificação']).replace(',', '.')),
-                    x['Genero'] != _Genderinfo  
+                    x['Genero'] != _Genderinfo
                 )
             )
         elif 2 in MistInfo:
             Selections = sorted(
                 Selections,
                 key=lambda x: (
+                    abs(float(str(x['Classificação']).replace(',', '.')) - float(str(MistInfo[6]).replace(',', '.'))) if 6 in MistInfo else 0,
                     -float(str(x['Classificação']).replace(',', '.')),
                     x['Classificação Indicativa'] == Similarity_Books.Rate_mapping[_MainAge]
                 )
@@ -224,6 +234,7 @@ class Similarity_Books:
             Selections = sorted(
                 Selections,
                 key=lambda x: (
+                    abs(float(str(x['Classificação']).replace(',', '.')) - float(str(MistInfo[6]).replace(',', '.'))) if 6 in MistInfo else 0,
                     -float(str(x['Classificação']).replace(',', '.')),
                     abs(x['Paginas'] - PageLimit)
                 )
@@ -231,7 +242,10 @@ class Similarity_Books:
         else:
             Selections = sorted(
                 Selections,
-                key=lambda x: -float(str(x['Classificação']).replace(',', '.'))
+                key=lambda x: (
+                    abs(float(str(x['Classificação']).replace(',', '.')) - float(str(MistInfo[6]).replace(',', '.'))) if 6 in MistInfo else 0,
+                    -float(str(x['Classificação']).replace(',', '.'))
+                )
             )
 
         return Selections
