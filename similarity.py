@@ -156,7 +156,7 @@ class Similarity_Books:
             _MainAge = int(MistInfo[2])
 
         if 1 in MistInfo:
-            _Genderinfo = str(MistInfo[1])        
+            _Genderinfo = [g.strip().lower() for g in str(MistInfo[1]).split(',')]       
 
         while len(Selections) < Similarity_Books.booksCount:
             print(f'Info = {MistInfo}')
@@ -164,10 +164,11 @@ class Similarity_Books:
             for _refbook in books:         
                 valid = True
 
-                if 1 in MistInfo:  # Gênero
-                    _refbook_Genderidx  = _refbook['Genero']
-                    if not any(letter in _refbook_Genderidx for letter in _Genderinfo):
+                if 1 in MistInfo: #genero
+                    _refbook_Genderidx = [g.strip().lower() for g in _refbook['Genero'].split(',')]
+                    if not any(g in _refbook_Genderidx for g in _Genderinfo):
                         valid = False
+
 
                 if 2 in MistInfo:  # Classificação indicativa
                     if _refbook['Classificação Indicativa'] != Similarity_Books.Rate_mapping[MistInfo[2]]:
@@ -194,8 +195,7 @@ class Similarity_Books:
                     var2 = str(MistInfo[6]).replace(",", ".")                    
                     if float(var1) < float(var2):
                         valid = False
-
-                # Se o livro passou em TODOS os critérios fornecidos, ele entra na lista
+                
                 if valid:  
                     Selections.append(_refbook)
 
