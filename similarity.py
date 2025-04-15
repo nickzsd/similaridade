@@ -75,42 +75,79 @@ class Similarity_Books:
     
     @staticmethod
     def makeConsult(_type: int, _info: str) -> list:
-        Selections = []        
-        for _refbook in books: #Primeira busca com todos os livros 
-            AppendBook = False        
-            if(_type == 1):
-                _refbook_Genderidx  = _refbook['Genero']
-                print(f"{_refbook_Genderidx} // {_info}") #para debug
-                AppendBook  = True if any(letter in _refbook_Genderidx for letter in _info) else False
-            elif(_type == 2):
-                AppendBook  =  True if (_refbook['Classificação Indicativa'] == Similarity_Books.Rate_mapping[int(_info)]) else False
-            elif(_type == 3):
-                AppendBook  =  True if (_refbook['Paginas'] >= int(_info)) else False
-            elif(_type == 4):
-                RefbookInfo = str(_refbook['Autor']).lower()
-                _info       = _info.lower()                    
-                AppendBook  =  True if (_info in RefbookInfo) else False 
-            elif(_type == 5):
-                RefbookInfo = str(_refbook['Titulo']).lower()
-                _info       = _info.lower()
-                AppendBook  =  True if (_info in RefbookInfo) else False
-            elif(_type == 6):
-                var1 = str(_refbook['Classificação']).replace(",", ".")
-                var2 = str(_info).replace(",", ".")                
-                AppendBook  =  True if float(var1) >= float(var2) else False
-                
-            if(AppendBook == True):
-                Selections.append(_refbook)
+        Selections = []
+        attempts = 0
 
+        original_info = _info
         target_rating = float(_info.replace(',', '.')) if _type == 6 else None
+        nota_fase = 'descendo' if _type == 6 else None
 
+        while len(Selections) < Similarity_Books.booksCount:
+            print(f"Attempt {attempts + 1} | Tipo: {_type} | Info: {_info} | Fase: {nota_fase}")
+
+            for _refbook in books:
+                AppendBook = False
+
+                if _type == 1:
+                    _refbook_Genderidx = _refbook['Genero']
+                    AppendBook = True if any(letter in _refbook_Genderidx for letter in _info) else False
+                elif _type == 2:
+                    _age = int(_info)
+                    print(_age)
+                    AppendBook = True if (_refbook['Classificação Indicativa'] == Similarity_Books.Rate_mapping[_age]) else False
+                elif _type == 3:
+                    AppendBook = True if (_refbook['Paginas'] >= int(_info)) else False
+                elif _type == 4:
+                    RefbookInfo = str(_refbook['Autor']).lower()
+                    AppendBook = True if (_info.lower() in RefbookInfo) else False
+                elif _type == 5:
+                    RefbookInfo = str(_refbook['Titulo']).lower()
+                    AppendBook = True if (_info.lower() in RefbookInfo) else False
+                elif _type == 6:
+                    var1 = float(str(_refbook['Classificação']).replace(",", "."))
+                    var2 = float(_info.replace(",", "."))
+                    AppendBook = True if var1 >= var2 else False
+
+                if AppendBook:
+                    Selections.append(_refbook)
+
+            if len(Selections) >= Similarity_Books.booksCount + 1 or attempts >= 10:
+                break
+
+            attempts += 1
+            
+            if _type == 6:
+                nota_atual = float(_info.replace(',', '.'))
+
+                if nota_fase == 'descendo':
+                    if nota_atual > 0.0:
+                        nota_atual = max(nota_atual - 0.5, 0.0)
+                        _info = str(round(nota_atual, 1)).replace('.', ',')
+                    else:
+                        nota_fase = 'subindo'
+                elif nota_fase == 'subindo':
+                    if nota_atual < target_rating:
+                        nota_atual = min(nota_atual + 0.5, target_rating)
+                        _info = str(round(nota_atual, 1)).replace('.', ',')
+                    else:
+                        nota_fase = 'finalizado'
+                elif nota_fase == 'finalizado':
+                    break
+            elif _type == 2:                
+                if int(_type) != 1:
+                    _info = int(_type) - 1 
+            elif _type == 3:
+                _info = int(_type * 0.80)
+            else:                
+                break
+        
         if _type == 1:
             Selections = sorted(
                 Selections,
                 key=lambda x: (
                     abs(float(str(x['Classificação']).replace(',', '.')) - target_rating) if target_rating is not None else 0,
                     -float(str(x['Classificação']).replace(',', '.')),
-                    x['Genero'] != str(_info[0])
+                    x['Genero'] != str(original_info[0])
                 )
             )
         elif _type == 2:
@@ -119,11 +156,11 @@ class Similarity_Books:
                 key=lambda x: (
                     abs(float(str(x['Classificação']).replace(',', '.')) - target_rating) if target_rating is not None else 0,
                     -float(str(x['Classificação']).replace(',', '.')),
-                    x['Classificação Indicativa'] != Similarity_Books.Rate_mapping[int(_info)]
+                    x['Classificação Indicativa'] != Similarity_Books.Rate_mapping[int(original_info)]
                 )
-            )  
+            )
         elif _type == 3:
-            min_pag = int(_info)
+            min_pag = int(original_info)
             Selections = sorted(
                 Selections,
                 key=lambda x: (
@@ -139,8 +176,9 @@ class Similarity_Books:
                     abs(float(str(x['Classificação']).replace(',', '.')) - target_rating) if target_rating is not None else 0,
                     -float(str(x['Classificação']).replace(',', '.'))
                 )
-            )     
-        return Selections;
+            )
+
+        return Selections
 
     @staticmethod
     def MakeMistConsult(MistInfo: dict) -> list:
@@ -148,7 +186,8 @@ class Similarity_Books:
         attempts   = 0
 
         if 6 in MistInfo:
-            RateLimit = int(MistInfo[6]) 
+            RateLimit = float(str(MistInfo[6]).replace(',', '.'))
+            nota_fase = 'descendo' 
 
         if 3 in MistInfo:
             PageLimit  = int(MistInfo[3])
@@ -157,7 +196,7 @@ class Similarity_Books:
             _MainAge = int(MistInfo[2])
 
         if 1 in MistInfo:
-            _Genderinfo = str(','.join(MistInfo[1]) )    
+            _Genderinfo = MistInfo[1]    
 
         while len(Selections) < Similarity_Books.booksCount:
             print(f'Info = {MistInfo}')
@@ -166,16 +205,14 @@ class Similarity_Books:
                 valid = True
 
                 if 1 in MistInfo: #genero
-                    _refbook_Genderidx = str(_refbook['Genero'])
-                    print(f"{_refbook_Genderidx} // {_Genderinfo}")
-                    if any(letter in _refbook_Genderidx for letter in _Genderinfo):
-                        print("possui")
-                    else:
-                        valid = False
+                    _refbook_Genderidx = str(_refbook['Genero'])                                      
+                    if not any(letter in _refbook_Genderidx for letter in _Genderinfo):
+                        valid = False 
 
-                if 2 in MistInfo:  # Classificação indicativa
-                    if _refbook['Classificação Indicativa'] != Similarity_Books.Rate_mapping[MistInfo[2]]:
-                        valid = False
+                if 2 in MistInfo:
+                    age_value = int(MistInfo[2])
+                    if _refbook['Classificação Indicativa'] != Similarity_Books.Rate_mapping[age_value]:
+                        valid = False                    
 
                 if 3 in MistInfo:  # Número de páginas (mínimo)
                     if _refbook['Paginas'] < int(MistInfo[3]):
@@ -200,27 +237,50 @@ class Similarity_Books:
                         valid = False
                 
                 if valid:  
-                    Selections.append(_refbook)
+                    Selections.append(_refbook)            
 
-            attempts = attempts + 1
-
-            if attempts == 10:
+            if len(Selections) >= Similarity_Books.booksCount + 1 or attempts >= 10:
                 break
 
-            if(len(Selections) > (Similarity_Books.booksCount + 1)):
-                break;  
+            if len(Selections) < (Similarity_Books.booksCount + 1):
+                if 6 in MistInfo:
+                    nota_atual = float(str(MistInfo[6]).replace(',', '.'))                    
 
-            if(len(Selections) < (Similarity_Books.booksCount + 1)):
-                if 3 in MistInfo: MistInfo[3] = (int(MistInfo[3]) * 0.80) 
-                if 2 in MistInfo: MistInfo[2] = (MistInfo[2] - 1) if (MistInfo[2] != 1) else MistInfo[2]                        
+                    if nota_fase == 'descendo':
+                        if nota_atual > 0.0:                            
+                            MistInfo[6] = nota_atual - 0.5
+                        else:
+                            nota_fase = 'subindo'
+                    elif nota_fase == 'subindo':
+                        if nota_atual < RateLimit:
+                            MistInfo[6] = nota_atual + 0.5                       
+                        else:
+                            nota_fase = 'finalizado'
+                    elif nota_fase == 'finalizado':
+                        attempts = attempts + 1
+
+                        if 3 in MistInfo:
+                            MistInfo[3] = int(MistInfo[3] * 0.80)
+                        if 2 in MistInfo:
+                            if MistInfo[2] != 1:
+                                MistInfo[2] = int(MistInfo[2]) - 1
+                else: 
+                    attempts = attempts + 1
+
+                    if 3 in MistInfo:
+                        MistInfo[3] = int(MistInfo[3] * 0.80)
+                    if 2 in MistInfo:
+                        if MistInfo[2] != 1:
+                            MistInfo[2] = int(MistInfo[2]) - 1 
+                                    
 
         if 1 in MistInfo:
-            _Genderinfo = _Genderinfo.split(',')[0]
+            _Genderinfo = _Genderinfo[0]
             Selections = sorted(
                 Selections,
                 key=lambda x: (
                     x['Genero'] != _Genderinfo,  # Prioriza livros com o primeiro gênero
-                    abs(float(str(x['Classificação']).replace(',', '.')) - float(str(MistInfo[6]).replace(',', '.'))) if 6 in MistInfo else 0,
+                    abs(float(str(x['Classificação']).replace(',', '.')) - RateLimit) if 6 in MistInfo else 0,
                     -float(str(x['Classificação']).replace(',', '.')) 
                 )
             )
@@ -228,7 +288,7 @@ class Similarity_Books:
             Selections = sorted(
                 Selections,
                 key=lambda x: (
-                    abs(float(str(x['Classificação']).replace(',', '.')) - float(str(MistInfo[6]).replace(',', '.'))) if 6 in MistInfo else 0,
+                    abs(float(str(x['Classificação']).replace(',', '.')) - RateLimit) if 6 in MistInfo else 0,
                     -float(str(x['Classificação']).replace(',', '.')),
                     x['Classificação Indicativa'] == Similarity_Books.Rate_mapping[_MainAge]
                 )
@@ -237,7 +297,7 @@ class Similarity_Books:
             Selections = sorted(
                 Selections,
                 key=lambda x: (
-                    abs(float(str(x['Classificação']).replace(',', '.')) - float(str(MistInfo[6]).replace(',', '.'))) if 6 in MistInfo else 0,
+                    abs(float(str(x['Classificação']).replace(',', '.')) - RateLimit) if 6 in MistInfo else 0,
                     -float(str(x['Classificação']).replace(',', '.')),
                     abs(x['Paginas'] - PageLimit)
                 )
@@ -246,11 +306,10 @@ class Similarity_Books:
             Selections = sorted(
                 Selections,
                 key=lambda x: (
-                    abs(float(str(x['Classificação']).replace(',', '.')) - float(str(MistInfo[6]).replace(',', '.'))) if 6 in MistInfo else 0,
+                    abs(float(str(x['Classificação']).replace(',', '.')) - RateLimit) if 6 in MistInfo else 0,
                     -float(str(x['Classificação']).replace(',', '.'))
                 )
             )
-
         return Selections
             
     def FilterType(FilterType_Int: int,_Info: dict) -> list:     
