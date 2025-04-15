@@ -217,9 +217,9 @@ class Similarity_Books:
             Selections = sorted(
                 Selections,
                 key=lambda x: (
+                    x['Genero'] != _Genderinfo,  # Prioriza livros com o primeiro gênero
                     abs(float(str(x['Classificação']).replace(',', '.')) - float(str(MistInfo[6]).replace(',', '.'))) if 6 in MistInfo else 0,
-                    -float(str(x['Classificação']).replace(',', '.')),
-                    x['Genero'] != _Genderinfo
+                    -float(str(x['Classificação']).replace(',', '.')) 
                 )
             )
         elif 2 in MistInfo:
