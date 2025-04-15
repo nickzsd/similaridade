@@ -80,6 +80,7 @@ class Similarity_Books:
             AppendBook = False        
             if(_type == 1):
                 _refbook_Genderidx  = _refbook['Genero']
+                print(f"{_refbook_Genderidx} // {_info}") #para debug
                 AppendBook  = True if any(letter in _refbook_Genderidx for letter in _info) else False
             elif(_type == 2):
                 AppendBook  =  True if (_refbook['Classificação Indicativa'] == Similarity_Books.Rate_mapping[int(_info)]) else False
@@ -156,7 +157,7 @@ class Similarity_Books:
             _MainAge = int(MistInfo[2])
 
         if 1 in MistInfo:
-            _Genderinfo = ','.join(MistInfo[1])     
+            _Genderinfo = str(','.join(MistInfo[1]) )    
 
         while len(Selections) < Similarity_Books.booksCount:
             print(f'Info = {MistInfo}')
@@ -167,7 +168,7 @@ class Similarity_Books:
                 if 1 in MistInfo: #genero
                     _refbook_Genderidx = str(_refbook['Genero'])
                     print(f"{_refbook_Genderidx} // {_Genderinfo}")
-                    if any(g.strip().lower() in _refbook_Genderidx.lower() for g in _Genderinfo):
+                    if any(letter in _refbook_Genderidx for letter in _Genderinfo):
                         print("possui")
                     else:
                         valid = False
