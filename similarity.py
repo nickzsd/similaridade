@@ -166,6 +166,7 @@ class Similarity_Books:
 
                 if 1 in MistInfo: #genero
                     _refbook_Genderidx = [g.strip().lower() for g in _refbook['Genero'].split(',')]
+                    print(f"{_refbook_Genderidx} // {_Genderinfo}")
                     if not any(g in _refbook_Genderidx for g in _Genderinfo):
                         valid = False
 
