@@ -167,7 +167,7 @@ class Similarity_Books:
                 if 1 in MistInfo: #genero
                     _refbook_Genderidx = str(_refbook['Genero'])
                     print(f"{_refbook_Genderidx} // {_Genderinfo}")
-                    if any(g in _refbook_Genderidx for g in _Genderinfo):
+                    if any(g.strip().lower() in _refbook_Genderidx.lower() for g in _Genderinfo):
                         print("possui")
                     else:
                         valid = False
