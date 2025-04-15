@@ -156,7 +156,7 @@ class Similarity_Books:
             _MainAge = int(MistInfo[2])
 
         if 1 in MistInfo:
-            _Genderinfo = str(MistInfo[1])      
+            _Genderinfo = ','.join(MistInfo[1])     
 
         while len(Selections) < Similarity_Books.booksCount:
             print(f'Info = {MistInfo}')
