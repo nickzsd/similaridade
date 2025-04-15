@@ -156,7 +156,7 @@ class Similarity_Books:
             _MainAge = int(MistInfo[2])
 
         if 1 in MistInfo:
-            _Genderinfo = [g.strip().lower() for g in str(MistInfo[1]).split(',')]       
+            _Genderinfo = str(MistInfo[1])      
 
         while len(Selections) < Similarity_Books.booksCount:
             print(f'Info = {MistInfo}')
@@ -165,7 +165,7 @@ class Similarity_Books:
                 valid = True
 
                 if 1 in MistInfo: #genero
-                    _refbook_Genderidx = [g.strip().lower() for g in _refbook['Genero'].split(',')]
+                    _refbook_Genderidx = str(_refbook['Genero'])
                     print(f"{_refbook_Genderidx} // {_Genderinfo}")
                     if not any(g in _refbook_Genderidx for g in _Genderinfo):
                         valid = False
