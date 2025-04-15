@@ -167,9 +167,10 @@ class Similarity_Books:
                 if 1 in MistInfo: #genero
                     _refbook_Genderidx = str(_refbook['Genero'])
                     print(f"{_refbook_Genderidx} // {_Genderinfo}")
-                    if not any(g in _refbook_Genderidx for g in _Genderinfo):
+                    if any(g in _refbook_Genderidx for g in _Genderinfo):
+                        print("possui")
+                    else:
                         valid = False
-
 
                 if 2 in MistInfo:  # Classificação indicativa
                     if _refbook['Classificação Indicativa'] != Similarity_Books.Rate_mapping[MistInfo[2]]:
