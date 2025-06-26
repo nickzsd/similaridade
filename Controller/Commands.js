@@ -90,7 +90,7 @@ async function getGenderKey(genre) {
 
 async function GetBooks(_Info) {    
     try {
-        const response = await fetch("https://similaridade.onrender.com/get_Books", { /*http://127.0.0.1:5000 para debug*/ 
+        const response = await fetch("https://similaridade.onrender.com/get_Books", { /*http://127.0.0.1:5000 para debug*/  
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
